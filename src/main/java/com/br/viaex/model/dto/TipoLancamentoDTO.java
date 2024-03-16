@@ -4,6 +4,7 @@
  */
 package com.br.viaex.model.dto;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -59,6 +60,6 @@ public class TipoLancamentoDTO {
     public void setStatusTipoLancamento(boolean statusTipoLancamento) {
         this.statusTipoLancamento = statusTipoLancamento;
     }
-
+   
     
 }
