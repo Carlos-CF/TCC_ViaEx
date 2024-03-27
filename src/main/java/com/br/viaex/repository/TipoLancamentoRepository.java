@@ -5,6 +5,7 @@
 package com.br.viaex.repository;
 
 import com.br.viaex.model.TipoLancamento;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TipoLancamentoRepository extends JpaRepository<TipoLancamento, Long>{
+    
+    public boolean existsByNome(String nome); 
+ 
+    public Optional<TipoLancamento> findByNome(String nome);
     
 }

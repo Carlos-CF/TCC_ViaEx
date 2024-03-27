@@ -9,72 +9,100 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  *
  * @author Carlos Fernandes
  */
-
 @Entity
 public class TipoLancamento {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long idTipoLancamento;
-    
-    
+    private Long id;
+
     @Column
     @NotNull
     @NotBlank
-    private String nomeTipoLancamento;
-    
-    
-    @Column(insertable = false)
-    @NotNull
-    @NotBlank
-    private boolean statusTipoLancamento;
+    private String nome;
+
+    @Column
+    private boolean status;
+
+    @Column
+    private LocalDateTime dataCriacao;
+
+    @Column
+    private LocalDateTime ultimaAtualizacao;
 
     public TipoLancamento() {
     }
 
-    public TipoLancamento(Long idTipoLancamento, String nomeTipoLancamento, boolean statusTipoLancamento) {
-        this.idTipoLancamento = idTipoLancamento;
-        this.nomeTipoLancamento = nomeTipoLancamento;
-        this.statusTipoLancamento = statusTipoLancamento;
+    public TipoLancamento(Long id, String nome, boolean status) {
+        this.id = id;
+        this.nome = nome;
+        this.status = status;
+        this.dataCriacao = LocalDateTime.now();
+        this.ultimaAtualizacao = LocalDateTime.now();
     }
 
-    public Long getIdTipoLancamento() {
-        return idTipoLancamento;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdTipoLancamento(Long idTipoLancamento) {
-        this.idTipoLancamento = idTipoLancamento;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNomeTipoLancamento() {
-        return nomeTipoLancamento;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeTipoLancamento(String nomeTipoLancamento) {
-        this.nomeTipoLancamento = nomeTipoLancamento;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public boolean isStatusTipoLancamento() {
-        return statusTipoLancamento;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setStatusTipoLancamento(boolean statusTipoLancamento) {
-        this.statusTipoLancamento = statusTipoLancamento;
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDateTime getUltimaAtualizacao() {
+        return ultimaAtualizacao;
+    }
+
+    public void setUltimaAtualizacao(LocalDateTime ultimaAtualizacao) {
+        this.ultimaAtualizacao = ultimaAtualizacao;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        dataCriacao = LocalDateTime.now();
+        status = true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.idTipoLancamento);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -90,10 +118,7 @@ public class TipoLancamento {
             return false;
         }
         final TipoLancamento other = (TipoLancamento) obj;
-        return Objects.equals(this.idTipoLancamento, other.idTipoLancamento);
+        return Objects.equals(this.id, other.id);
     }
 
-    
-
-    
 }

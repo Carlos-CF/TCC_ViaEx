@@ -14,5 +14,5 @@ import org.springframework.http.ResponseEntity;
  */
 public interface TipoLancamentoService extends CrudService<TipoLancamentoDTO>{
     
-     ResponseEntity<Object> mudancaStatus(Long idObjeto) throws Exception;
+     ResponseEntity<Object> mudarStatus(Long idObjeto) throws Exception;
 }
