@@ -39,6 +39,7 @@ public class TipoLancamentoServiceImpl implements TipoLancamentoService {
                 .orElseThrow(() -> new NoSuchElementException("O Tipo Lançamento com ID " + idObjeto + " não foi encontrada!"));
 
         objeto.setStatus(!objeto.isStatus());
+        objeto.setUltimaAtualizacao(LocalDateTime.now());
         TipoLancamento objetoAtualizado = tipoLancamentoRepository.saveAndFlush(objeto);
 
         // Converte o objeto atualizado para DTO
@@ -87,6 +88,7 @@ public class TipoLancamentoServiceImpl implements TipoLancamentoService {
                 .orElseThrow(() -> new NoSuchElementException("O Tipo Lançamento com ID " + idObjeto + " não foi encontrada!"));
 
         dadosDto.setUltimaAtualizacao(LocalDateTime.now());
+        dadosDto.setId(idObjeto);
         BeanUtils.copyProperties(dadosDto, paraEditar, "id");
         TipoLancamento objetoAtualizado = tipoLancamentoRepository.saveAndFlush(dadosDto);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(tipoLancamentoMapper.converterParaDto(objetoAtualizado)));

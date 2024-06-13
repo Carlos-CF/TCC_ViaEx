@@ -2,49 +2,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.br.viaex.model;
+package com.br.viaex.model.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  *
  * @author Carlos Fernandes
  */
-@Entity
-public class TipoLancamento {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+public class DepartamentoDTO {
+    
     private Long id;
 
-    @Column
-    @NotNull
-    @NotBlank
+    @NotNull(message = "O nome precisa ser informado!")
+    @NotBlank(message = "O nome não pode estar em branco!")
     private String nome;
 
-    @Column
     private boolean status;
 
-    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(type = "string", pattern = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$", example = "2024-01-01 12:00:00")
     private LocalDateTime dataCriacao;
 
-    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(type = "string", pattern = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$", example = "2024-01-01 12:00:00")
     private LocalDateTime ultimaAtualizacao;
 
-    public TipoLancamento() {
+    public DepartamentoDTO() {
     }
 
-    public TipoLancamento(Long id, String nome, boolean status) {
+    public DepartamentoDTO(Long id, String nome, boolean status) {
         this.id = id;
         this.nome = nome;
         this.status = status;
@@ -91,33 +82,7 @@ public class TipoLancamento {
     public void setUltimaAtualizacao(LocalDateTime ultimaAtualizacao) {
         this.ultimaAtualizacao = ultimaAtualizacao;
     }
-
-    @PrePersist
-    public void prePersist() {
-        dataCriacao = LocalDateTime.now();
-        status = true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TipoLancamento other = (TipoLancamento) obj;
-        return Objects.equals(this.id, other.id);
-    }
-
+    
+    
+    
 }

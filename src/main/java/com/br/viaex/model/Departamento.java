@@ -20,7 +20,7 @@ import java.util.Objects;
  * @author Carlos Fernandes
  */
 @Entity
-public class TipoLancamento {
+public class Departamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +41,10 @@ public class TipoLancamento {
     @Column
     private LocalDateTime ultimaAtualizacao;
 
-    public TipoLancamento() {
+    public Departamento() {
     }
 
-    public TipoLancamento(Long id, String nome, boolean status) {
+    public Departamento(Long id, String nome, boolean status) {
         this.id = id;
         this.nome = nome;
         this.status = status;
@@ -101,7 +101,7 @@ public class TipoLancamento {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 31 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -116,8 +116,9 @@ public class TipoLancamento {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TipoLancamento other = (TipoLancamento) obj;
+        final Departamento other = (Departamento) obj;
         return Objects.equals(this.id, other.id);
     }
 
+    
 }
