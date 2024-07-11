@@ -41,7 +41,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     public ResponseEntity<Object> mudarStatus(Long idObjeto) throws Exception {
 
         Administrador objeto = administradorRepository.findById(idObjeto)
-                .orElseThrow(() -> new NoSuchElementException("Usuario com ID " + idObjeto + " não encontrado!"));
+                .orElseThrow(() -> new NoSuchElementException("administrador com ID " + idObjeto + " não encontrado!"));
 
         objeto.setStatus(!objeto.isStatus());
         objeto.setUltimaAtualizacao(LocalDateTime.now());
@@ -56,11 +56,11 @@ public class AdministradorServiceImpl implements AdministradorService {
     public ResponseEntity<Object> cadastrar(UsuarioDTO objeto) throws Exception {
 
         if (administradorRepository.existsByEmail(objeto.getEmail())) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar o Usuário, Já existe outro email com o mesmo nome."));
+            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar o administrador, Já existe outro email com o mesmo nome."));
         }
 
         if (administradorRepository.existsByCpf(objeto.getCpf())) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar o Usuário, Já existe outro CPF igual"));
+            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar o administrador, Já existe outro CPF igual"));
         }
 
         if (objeto.getSenha().length() < 8) {
@@ -97,18 +97,18 @@ public class AdministradorServiceImpl implements AdministradorService {
 
         Administrador dadosDto = usuarioMapper.converterParaEntidade(objeto);
         Administrador paraEditar = administradorRepository.findById(idObjeto)
-                .orElseThrow(() -> new NoSuchElementException("O Usuário com ID " + idObjeto + "não foi encontrada!"));
+                .orElseThrow(() -> new NoSuchElementException("O administrador com ID " + idObjeto + "não foi encontrada!"));
 
         Long idUsuarioEditado = objeto.getId();
 
         // Verifique se há outro usuário com o mesmo email, exceto o próprio usuário que está sendo editado
         if (administradorRepository.existsByEmailAndIdNot(objeto.getEmail(), idUsuarioEditado)) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possível editar o Usuário, já existe outro email com o mesmo nome."));
+            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possível editar o administrador, já existe outro email com o mesmo nome."));
         }
 
         // Verifique se há outro usuário com o mesmo CPF, exceto o próprio usuário que está sendo editado
         if (administradorRepository.existsByCpfAndIdNot(objeto.getCpf(), idUsuarioEditado)) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possível editar o Usuário, já existe outro CPF igual."));
+            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possível editar o administrador, já existe outro CPF igual."));
         }
 
         objeto.setUltimaAtualizacao(LocalDateTime.now());
@@ -132,10 +132,10 @@ public class AdministradorServiceImpl implements AdministradorService {
     public ResponseEntity<Object> excluir(Long idObjeto) throws Exception {
 
         administradorRepository.findById(idObjeto)
-                .orElseThrow(() -> new NoSuchElementException("O Usuário com o ID " + idObjeto + " não foi encontrada!"));
+                .orElseThrow(() -> new NoSuchElementException("O administrador com o ID " + idObjeto + " não foi encontrada!"));
 
         administradorRepository.deleteById(idObjeto);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>("O Usuário foi excluída com sucesso."));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>("O administrador foi excluída com sucesso."));
     }
 
 }
