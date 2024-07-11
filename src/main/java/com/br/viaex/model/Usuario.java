@@ -7,6 +7,7 @@ package com.br.viaex.model;
 import com.br.viaex.model.enumerated.Genero;
 import com.br.viaex.model.enumerated.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -35,7 +36,7 @@ import org.hibernate.validator.constraints.br.CPF;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipoUsuario", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "tipoUsuario", discriminatorType = DiscriminatorType.STRING)
 public class Usuario {
 
     @Id
@@ -44,7 +45,7 @@ public class Usuario {
     private Long id;
 
     @Column(name = "tipoUsuario", insertable = false, updatable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
     @Column
@@ -97,6 +98,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "idDepartamento")
+    @JsonIgnoreProperties({"nome", "status", "dataCriacao", "ultimaAtualizacao"})
     private Departamento departamento;
 
     @Column
