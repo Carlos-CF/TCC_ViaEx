@@ -5,7 +5,6 @@
 package com.br.viaex.controller;
 
 import com.br.viaex.model.dto.UsuarioDTO;
-import com.br.viaex.service.UsuarioService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,17 +20,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.br.viaex.service.AdministradorService;
 
 /**
  *
  * @author Carlos
  */
 @RestController
-@RequestMapping(value = "/usuario")
-public class UsuarioController {
+@RequestMapping(value = "/Administrador")
+public class AdministradorController {
     
     @Autowired
-    private UsuarioService usuarioService;
+    private AdministradorService administradorService;
     
     @PostMapping
     @ApiResponses({
@@ -42,7 +42,7 @@ public class UsuarioController {
         @ApiResponse(responseCode = "500", description = "Erro interno (Internal Server Error)")
     })
     public ResponseEntity<Object> cadastrar(@RequestBody UsuarioDTO objeto) throws Exception {
-        return usuarioService.cadastrar(objeto);
+        return administradorService.cadastrar(objeto);
     }
     
      @GetMapping
@@ -54,7 +54,7 @@ public class UsuarioController {
         @ApiResponse(responseCode = "500", description = "Erro interno (Internal Server Error)")
     })
     public ResponseEntity<Object> listar() throws Exception {
-        return usuarioService.listar();
+        return administradorService.listar();
     }
 
      @GetMapping("/{idObjeto}")
@@ -66,7 +66,7 @@ public class UsuarioController {
         @ApiResponse(responseCode = "500", description = "Erro interno (Internal Server Error)")
     })
     public ResponseEntity<Object> listarPorId(@PathVariable Long idObjeto) throws Exception {
-        return usuarioService.listarPorId(idObjeto);
+        return administradorService.listarPorId(idObjeto);
     }
 
     @PutMapping("/{idObjeto}")
@@ -78,7 +78,7 @@ public class UsuarioController {
         @ApiResponse(responseCode = "500", description = "Erro interno (Internal Server Error)")
     })
     public ResponseEntity<Object> editar(@PathVariable Long idObjeto, @RequestBody UsuarioDTO objeto) throws Exception {
-        return usuarioService.editar(idObjeto, objeto);
+        return administradorService.editar(idObjeto, objeto);
     }
 
     @DeleteMapping("/{idObjeto}")
@@ -90,7 +90,7 @@ public class UsuarioController {
         @ApiResponse(responseCode = "500", description = "Erro interno (Internal Server Error)")
     })
     public ResponseEntity<Object> excluir(@PathVariable Long idObjeto) throws Exception {
-        return usuarioService.excluir(idObjeto);
+        return administradorService.excluir(idObjeto);
     }
 
      @PatchMapping("/{idObjeto}/status")
@@ -102,6 +102,6 @@ public class UsuarioController {
         @ApiResponse(responseCode = "500", description = "Erro interno (Internal Server Error)")
     })
     public ResponseEntity<Object> mudarStatus(@PathVariable Long idObjeto) throws Exception {
-        return usuarioService.mudarStatus(idObjeto);
+        return administradorService.mudarStatus(idObjeto);
     }
 }

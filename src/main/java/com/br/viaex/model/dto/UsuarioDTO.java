@@ -24,10 +24,6 @@ public class UsuarioDTO {
     
     
     private Long id;
-
-    @NotNull(message = "O Tipo Usuário precisa ser informado!")
-    @NotBlank(message = "O Tipo Usuário não pode estar em branco!")
-    private TipoUsuario tipoUsuario;
     
     @NotNull(message = "O nome completo precisa ser informado!")
     @NotBlank(message = "O nome completo não pode estar em branco!")
@@ -82,6 +78,7 @@ public class UsuarioDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(type = "string", pattern = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$", example = "2024-01-01 12:00:00")
     private LocalDateTime ultimaAtualizacao;
+    
 
     public Long getId() {
         return id;
@@ -89,14 +86,6 @@ public class UsuarioDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNomeCompleto() {

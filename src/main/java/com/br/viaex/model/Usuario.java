@@ -6,10 +6,8 @@ package com.br.viaex.model;
 
 import com.br.viaex.model.enumerated.Genero;
 import com.br.viaex.model.enumerated.TipoUsuario;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;

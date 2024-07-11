@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
  *
  * @author Carlos
  */
-public interface UsuarioService extends CrudService<UsuarioDTO>{
+public interface AdministradorService extends CrudService<UsuarioDTO>{
     
     ResponseEntity<Object> mudarStatus(Long idObjeto) throws Exception;
 }
