@@ -87,6 +87,7 @@ public class TipoLancamentoServiceImpl implements TipoLancamentoService {
         TipoLancamento paraEditar = tipoLancamentoRepository.findById(idObjeto)
                 .orElseThrow(() -> new NoSuchElementException("O Tipo Lançamento com ID " + idObjeto + " não foi encontrada!"));
 
+        dadosDto.setDataCriacao(objeto.getDataCriacao());
         dadosDto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
         BeanUtils.copyProperties(dadosDto, paraEditar, "id");

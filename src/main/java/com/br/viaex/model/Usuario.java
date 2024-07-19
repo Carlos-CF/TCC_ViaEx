@@ -279,7 +279,7 @@ public class Usuario {
         final Usuario other = (Usuario) obj;
         return Objects.equals(this.id, other.id);
     }
+    
+    
 
-    
-    
 }
