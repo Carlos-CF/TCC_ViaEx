@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,9 @@ public class OperacionalServiceImpl implements OperacionalService {
 
     @Autowired
     private OperacionalRepository operacionalRepository;
+    
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public ResponseEntity<Object> mudarStatus(Long idObjeto) throws Exception {
@@ -65,7 +69,7 @@ public class OperacionalServiceImpl implements OperacionalService {
 
         Operacional operacional = new Operacional();
         BeanUtils.copyProperties(objeto, operacional, "id", "tipoUsuario");
-        operacional.setSenha(operacional.getSenha());
+        operacional.setSenha(passwordEncoder.encode(operacional.getSenha()));
         Operacional objetoCriado = operacionalRepository.saveAndFlush(operacional);
         return ResponseEntity.created(
                 ServletUriComponentsBuilder
@@ -110,7 +114,7 @@ public class OperacionalServiceImpl implements OperacionalService {
         objeto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
         BeanUtils.copyProperties(objeto, paraEditar, "id", "tipoUsuario");
-        paraEditar.setSenha(paraEditar.getSenha());
+        paraEditar.setSenha(passwordEncoder.encode(paraEditar.getSenha()));
         operacionalRepository.saveAndFlush(paraEditar);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(paraEditar));
     }

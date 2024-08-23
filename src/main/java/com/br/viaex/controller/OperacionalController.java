@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/Operacional")
-public class OperacioanlController {
+public class OperacionalController {
     
     @Autowired
     private OperacionalService operacionalService;

@@ -68,7 +68,7 @@ public class UsuarioDTO {
     @NotBlank(message = "O Estado precisa ser informado!")
     private String estado;
 
-
+   
     private Departamento departamento;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

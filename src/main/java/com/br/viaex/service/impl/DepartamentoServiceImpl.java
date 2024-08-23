@@ -88,9 +88,18 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         Departamento paraEditar = departamentoRepository.findById(idObjeto)
                 .orElseThrow(() -> new NoSuchElementException("O Departamento com ID " + idObjeto + " não foi encontrada!"));
         
+        if (departamentoRepository.existsByNome(objeto.getNome())) {
+            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar o Departamento. Já existe outro Departamento com o mesmo nome."));
+        }
+        
+        LocalDateTime dataCriacaoObjeto = paraEditar.getDataCriacao();
+        boolean statusObjeto = paraEditar.isStatus();
+        
+        dadosDto.setDataCriacao(dataCriacaoObjeto);
+        dadosDto.setStatus(statusObjeto);
         dadosDto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
-        BeanUtils.copyProperties(dadosDto, paraEditar, "id");
+        BeanUtils.copyProperties(dadosDto, paraEditar, "id","dataCriacao","status");
         Departamento objetoAtualizado = departamentoRepository.saveAndFlush(dadosDto);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(departamentoMapper.converterParaDto(objetoAtualizado)));
     }

@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -34,6 +35,8 @@ public class AprovadorServiceImpl implements AprovadorService{
     @Autowired
     private AprovadorRepository aprovadorRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public ResponseEntity<Object> mudarStatus(Long idObjeto) throws Exception {
@@ -67,7 +70,7 @@ public class AprovadorServiceImpl implements AprovadorService{
 
         Aprovador aprovador = new Aprovador();
         BeanUtils.copyProperties(objeto, aprovador, "id", "tipoUsuario");
-        aprovador.setSenha(aprovador.getSenha());
+        aprovador.setSenha(passwordEncoder.encode(aprovador.getSenha()));
         Aprovador objetoCriado = aprovadorRepository.saveAndFlush(aprovador);
         return ResponseEntity.created(
                 ServletUriComponentsBuilder
@@ -112,7 +115,7 @@ public class AprovadorServiceImpl implements AprovadorService{
         objeto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
         BeanUtils.copyProperties(objeto, paraEditar, "id", "tipoUsuario");
-        paraEditar.setSenha(paraEditar.getSenha());
+        paraEditar.setSenha(passwordEncoder.encode(paraEditar.getSenha()));
         aprovadorRepository.saveAndFlush(paraEditar);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(paraEditar));
     }
