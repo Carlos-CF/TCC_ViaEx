@@ -86,11 +86,19 @@ public class TipoLancamentoServiceImpl implements TipoLancamentoService {
         TipoLancamento dadosDto = tipoLancamentoMapper.converterParaEntidade(objeto);
         TipoLancamento paraEditar = tipoLancamentoRepository.findById(idObjeto)
                 .orElseThrow(() -> new NoSuchElementException("O Tipo Lançamento com ID " + idObjeto + " não foi encontrada!"));
+        
+        if (tipoLancamentoRepository.existsByNome(objeto.getNome())) {
+            return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar o Tipo Lançamento. Já existe outro Tipo Lançamento com o mesmo nome."));
+        }
 
-        dadosDto.setDataCriacao(objeto.getDataCriacao());
+        LocalDateTime dataCriacaoObjeto = paraEditar.getDataCriacao();
+        boolean statusObjeto = paraEditar.isStatus();
+        
+        dadosDto.setDataCriacao(dataCriacaoObjeto);
+        dadosDto.setStatus(statusObjeto);
         dadosDto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
-        BeanUtils.copyProperties(dadosDto, paraEditar, "id");
+        BeanUtils.copyProperties(dadosDto, paraEditar, "id","dataCriacao","status");
         TipoLancamento objetoAtualizado = tipoLancamentoRepository.saveAndFlush(dadosDto);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(tipoLancamentoMapper.converterParaDto(objetoAtualizado)));
     }

@@ -62,12 +62,16 @@ public class JwtSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+       
+        
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/**")
-                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/tipolancamento/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/tipolancamento/status").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/tipolancamento/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/tipolancamento/**").authenticated()
                         .anyRequest().authenticated())
                 .cors((cors) -> corsConfigurationSource())
                 .csrf((csrf) -> csrf.disable())
@@ -78,6 +82,21 @@ public class JwtSecurityConfig {
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler()));
         return http.build();
+        
+        /*http
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                        .anyRequest().authenticated())
+                .cors((cors) -> corsConfigurationSource())
+                .csrf((csrf) -> csrf.disable())
+                .httpBasic(Customizer.withDefaults())
+                .oauth2ResourceServer((oauth2ResourceServer) -> oauth2ResourceServer.jwt(Customizer.withDefaults()))
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling((exceptions) -> exceptions
+                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler()));
+        return http.build();*/
     }
 
     @Bean
@@ -117,14 +136,13 @@ public class JwtSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://26.61.48.23:4200"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
- // codigo do gugu
 
 /*
         CorsConfiguration configuration = new CorsConfiguration();

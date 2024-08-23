@@ -60,8 +60,8 @@ public class LoginServiceImpl {
 
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
-        response.put("usuarioLogado", authenticationResponse.getName());
-        response.put("permissoes", authenticationResponse.getAuthorities().stream().map(GrantedAuthority::getAuthority));
+        //response.put("usuarioLogado", authenticationResponse.getName());
+        //response.put("permissoes", authenticationResponse.getAuthorities().stream().map(GrantedAuthority::getAuthority));
 
         return ResponseEntity.ok(new ApiResponse<>(response));
         

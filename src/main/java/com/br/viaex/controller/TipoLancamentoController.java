@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/tipolancamento")
 public class TipoLancamentoController {
     
-     @Autowired
+    @Autowired
     private TipoLancamentoService tipoLancamentoService;
 
     @PostMapping

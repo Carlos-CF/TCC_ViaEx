@@ -6,9 +6,10 @@ package com.br.viaex.service.impl;
 
 import com.br.viaex.mapper.CustomObjectMapper;
 import com.br.viaex.model.Administrador;
-import com.br.viaex.model.Usuario;
+import com.br.viaex.model.Departamento;
 import com.br.viaex.model.dto.UsuarioDTO;
 import com.br.viaex.repository.AdministradorRepository;
+import com.br.viaex.repository.DepartamentoRepository;
 import com.br.viaex.service.util.ApiResponse;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.br.viaex.service.AdministradorService;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -35,8 +37,12 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Autowired
     private AdministradorRepository administradorRepository;
 
-    //@Autowired
-    //private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private DepartamentoRepository departamentoRepository;
+    
     @Override
     public ResponseEntity<Object> mudarStatus(Long idObjeto) throws Exception {
 
@@ -66,10 +72,11 @@ public class AdministradorServiceImpl implements AdministradorService {
         if (objeto.getSenha().length() < 8) {
             return ResponseEntity.badRequest().body(new ApiResponse<>("A senha precisa ter pelomenos 8 digitos"));
         }
-
+        
+       
         Administrador administrador = new Administrador();
         BeanUtils.copyProperties(objeto, administrador, "id", "tipoUsuario");
-        administrador.setSenha(administrador.getSenha());
+        administrador.setSenha(passwordEncoder.encode(administrador.getSenha()));
         Administrador objetoCriado = administradorRepository.saveAndFlush(administrador);
         return ResponseEntity.created(
                 ServletUriComponentsBuilder
@@ -114,7 +121,7 @@ public class AdministradorServiceImpl implements AdministradorService {
         objeto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
         BeanUtils.copyProperties(objeto, paraEditar, "id", "tipoUsuario");
-        paraEditar.setSenha(paraEditar.getSenha());
+        paraEditar.setSenha(passwordEncoder.encode(paraEditar.getSenha()));
         administradorRepository.saveAndFlush(paraEditar);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(paraEditar));
     }
