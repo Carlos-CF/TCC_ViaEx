@@ -147,6 +147,7 @@ public class Viagem {
     @PrePersist
     public void prePersist() {
         dataCriacao = LocalDateTime.now();
+        finalizado = false;
     }
 
     @Override
