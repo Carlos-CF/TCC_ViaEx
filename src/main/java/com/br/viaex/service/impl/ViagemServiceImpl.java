@@ -39,7 +39,9 @@ public class ViagemServiceImpl implements ViagemService {
         Viagem viagem = new Viagem();
         viagem.setNome(objeto.getNome());
         viagem.setAdiantamento(objeto.isAdiantamento());
+        if(objeto.isAdiantamento() == true){
         viagem.setValorAdiantamento(objeto.getValorAdiantamento());
+        }
         viagem.setUsuario(objeto.getUsuario());
         
 
@@ -71,9 +73,9 @@ public class ViagemServiceImpl implements ViagemService {
         Viagem paraEditar = viagemRepository.findById(idObjeto)
                 .orElseThrow(() -> new NoSuchElementException("Viagem com ID " + idObjeto + "não foi encontrada!"));
         
-        objeto.setUltimaAtualizacao(LocalDateTime.now());
+        dadosDto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
-        BeanUtils.copyProperties(objeto,"id");
+        BeanUtils.copyProperties(dadosDto, paraEditar,"id");
         viagemRepository.saveAndFlush(paraEditar);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(paraEditar));
     }

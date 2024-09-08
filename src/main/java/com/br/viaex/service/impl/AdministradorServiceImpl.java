@@ -120,7 +120,7 @@ public class AdministradorServiceImpl implements AdministradorService {
 
         objeto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
-        BeanUtils.copyProperties(objeto, paraEditar, "id", "tipoUsuario");
+        BeanUtils.copyProperties(objeto, paraEditar, "id");
         paraEditar.setSenha(passwordEncoder.encode(paraEditar.getSenha()));
         administradorRepository.saveAndFlush(paraEditar);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(paraEditar));

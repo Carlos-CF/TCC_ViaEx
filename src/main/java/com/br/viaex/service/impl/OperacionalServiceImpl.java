@@ -113,7 +113,7 @@ public class OperacionalServiceImpl implements OperacionalService {
 
         objeto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
-        BeanUtils.copyProperties(objeto, paraEditar, "id", "tipoUsuario");
+        BeanUtils.copyProperties(objeto, paraEditar, "id");
         paraEditar.setSenha(passwordEncoder.encode(paraEditar.getSenha()));
         operacionalRepository.saveAndFlush(paraEditar);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(paraEditar));

@@ -13,5 +13,6 @@ public enum StatusLancamento {
     REVISAO,
     REPROVADO,
     APROVADO,
-    APROVADO_PARCIALMENTE
+    APROVADO_PARCIALMENTE,
+    RASCUNHO
 }
