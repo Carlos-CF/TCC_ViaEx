@@ -26,7 +26,7 @@ public class ViagemMapperImpl implements CustomObjectMapper<Viagem, ViagemDTO>{
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());
         dto.setValorTotal(entity.getValorTotal());
-        dto.setAdiantamento(entity.isFinalizado());
+        dto.setAdiantamento(entity.isAdiantamento());
         dto.setValorAdiantamento(entity.getValorAdiantamento());
         dto.setFinalizado(entity.isFinalizado());
         dto.setUsuario(entity.getUsuario());
@@ -43,7 +43,7 @@ public class ViagemMapperImpl implements CustomObjectMapper<Viagem, ViagemDTO>{
         viagem.setId(dto.getId());
         viagem.setNome(dto.getNome());
         viagem.setValorTotal(dto.getValorTotal());
-        viagem.setAdiantamento(dto.isFinalizado());
+        viagem.setAdiantamento(dto.isAdiantamento());
         viagem.setValorAdiantamento(dto.getValorAdiantamento());
         viagem.setFinalizado(dto.isFinalizado());
         viagem.setUsuario(dto.getUsuario());

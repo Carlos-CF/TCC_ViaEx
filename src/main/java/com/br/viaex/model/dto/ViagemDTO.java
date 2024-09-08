@@ -5,6 +5,7 @@
 package com.br.viaex.model.dto;
 
 import com.br.viaex.model.Usuario;
+import com.br.viaex.model.enumerated.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -113,6 +114,5 @@ public class ViagemDTO {
     public void setUltimaAtualizacao(LocalDateTime ultimaAtualizacao) {
         this.ultimaAtualizacao = ultimaAtualizacao;
     }
-    
-    
+
 }

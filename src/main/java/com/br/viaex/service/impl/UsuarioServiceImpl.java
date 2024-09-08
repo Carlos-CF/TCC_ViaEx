@@ -39,7 +39,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ApiResponse<>("Não existem Usuario cadastrados no sistema!"));
         }
-
+        
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(usuarioMapper.converterParaListaDeDtos(usuario)));
     }
 

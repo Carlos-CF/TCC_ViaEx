@@ -62,5 +62,35 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Collection<? extends GrantedAuthority> getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(Collection<? extends GrantedAuthority> permissoes) {
+        this.permissoes = permissoes;
+    }
+    
+    
     
 }

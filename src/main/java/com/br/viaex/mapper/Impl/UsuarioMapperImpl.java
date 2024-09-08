@@ -25,6 +25,7 @@ public class UsuarioMapperImpl implements CustomObjectMapper<Usuario, UsuarioDTO
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(entity.getId());
         dto.setNomeCompleto(entity.getNomeCompleto());
+        dto.setTipoUsuario(entity.getTipoUsuario());
         dto.setDataNascimento(entity.getDataNascimento());
         dto.setCpf(entity.getCpf());
         dto.setEmail(entity.getEmail());

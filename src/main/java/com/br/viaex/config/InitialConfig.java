@@ -20,7 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  *
  * @author Carlos
  */
-
+/*
 @Configuration
 public class InitialConfig {
     
@@ -60,3 +60,4 @@ public class InitialConfig {
         
     
 }
+*/

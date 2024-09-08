@@ -35,6 +35,7 @@ public class UsuarioDTO {
     @Schema(type = "string", pattern = "^\\d{4}-\\d{2}-\\d{2}", example = "2024-01-01")
     private LocalDate dataNascimento;
 
+    private TipoUsuario tipoUsuario;
     
     @NotNull(message = "O CPF precisa ser informado!")
     @NotBlank
@@ -190,6 +191,14 @@ public class UsuarioDTO {
 
     public void setUltimaAtualizacao(LocalDateTime ultimaAtualizacao) {
         this.ultimaAtualizacao = ultimaAtualizacao;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
     
     

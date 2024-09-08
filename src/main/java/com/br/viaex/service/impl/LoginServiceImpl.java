@@ -43,6 +43,8 @@ public class LoginServiceImpl {
 
         Instant now = Instant.now();
         long expiry = 36000L;
+        
+        UserDetailsImpl details = (UserDetailsImpl) authenticationResponse.getPrincipal();
 
         String scope = authenticationResponse.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -60,6 +62,7 @@ public class LoginServiceImpl {
 
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
+        response.put("idUsuario", details.getId());
         //response.put("usuarioLogado", authenticationResponse.getName());
         //response.put("permissoes", authenticationResponse.getAuthorities().stream().map(GrantedAuthority::getAuthority));
 
